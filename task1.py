@@ -29,7 +29,8 @@ def encrypt(plaintext, cipherKey):
     return ciphertext
 
 
-text = input()
-key = input()
+if __name__ == '__main__':
+    text = input()
+    key = input()
 
-print(encrypt(text, key))
+    print(encrypt(text, key))
