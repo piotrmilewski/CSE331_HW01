@@ -14,7 +14,7 @@ def decrypt(ciphertext, cipherKey):
                 upper = False
             # add cipher
             currChar = currChar - currCiph
-            # make sure no overflow or underflow
+            # make sure no underflow
             if (currChar < 65 and upper) or (currChar < 97 and not upper):
                 currChar = currChar + 26
             # add to the printed string

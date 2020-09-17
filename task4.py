@@ -1,4 +1,5 @@
 import re
+import sys
 from task2 import decrypt
 from task3 import getKey
 
@@ -41,10 +42,16 @@ def getKeyLen(ciphertext):
         avgIOC = sumIOC / keyLen
         iocTable.append(avgIOC)
 
+    smallestDiff = sys.maxsize
+    bestLen = 0
     for i in range(len(iocTable)):
-        if 0.072 > iocTable[i] > 0.062:
+        diff = abs(iocTable[i] - 0.0667)
+        if diff < smallestDiff:
+            bestLen = i + 1
+            smallestDiff = diff
+        if 0.0727 > iocTable[i] > 0.0607:
             return i + 1
-    return 0
+    return bestLen
 
 
 if __name__ == '__main__':

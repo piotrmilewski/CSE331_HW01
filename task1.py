@@ -14,7 +14,7 @@ def encrypt(plaintext, cipherKey):
                 upper = False
             # add cipher
             currChar = currChar + currCiph
-            # make sure no overflow or underflow
+            # make sure no overflow
             if (currChar > 91 and upper) or (currChar > 122 and not upper):
                 currChar = currChar - 26
             # add to the printed string
