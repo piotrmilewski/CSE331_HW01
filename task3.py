@@ -18,33 +18,38 @@ def freqAnalysis(arr):
     return chr(alphaIndex+65)
 
 
-ciphertext = input()
-ciphertextUpper = ciphertext.upper()
-cipherKeyLen = int(input())
-key = ""
+def getKey(ciphertext, cipherKeyLen):
+    ciphertextUpper = ciphertext.upper()
+    retKey = ""
+    freqArray = np.array([0] * 26)
+    currKeyIndex = 0
+    while currKeyIndex < cipherKeyLen:
+        i = 0
+        keyIndex = 0
+        length = 0
+        while i < len(ciphertextUpper):
+            currChar = ord(ciphertextUpper[i])
+            if 91 > currChar > 64:
+                if keyIndex == currKeyIndex:
+                    currChar = currChar - 65
+                    freqArray[currChar] = freqArray[currChar] + 1
+                    length = length + 1
+                keyIndex = keyIndex + 1
+                if keyIndex == cipherKeyLen:
+                    keyIndex = 0
+            i = i + 1
+        freqArray = freqArray / length
+        freqArray = freqArray * 100
+        retKey = retKey + freqAnalysis(freqArray)
+        freqArray.fill(0)
+        currKeyIndex = currKeyIndex + 1
+    return retKey
 
-freqArray = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-currKeyIndex = 0
-while currKeyIndex < cipherKeyLen:
-    i = 0
-    keyIndex = 0
-    length = 0
-    while i < len(ciphertext):
-        currChar = ord(ciphertextUpper[i])
-        if 91 > currChar > 64:
-            if keyIndex == currKeyIndex:
-                currChar = currChar - 65
-                freqArray[currChar] = freqArray[currChar] + 1
-                length = length + 1
-            keyIndex = keyIndex + 1
-            if keyIndex == cipherKeyLen:
-                keyIndex = 0
-        i = i + 1
-    freqArray = freqArray / length
-    freqArray = freqArray * 100
-    key = key + freqAnalysis(freqArray)
-    freqArray.fill(0)
-    currKeyIndex = currKeyIndex + 1
 
-print(key)
-print(decrypt(ciphertext, key))
+if __name__ == '__main__':
+    text = input()
+    keyLen = int(input())
+
+    key = getKey(text, keyLen)
+    print(key)
+    print(decrypt(text, key))

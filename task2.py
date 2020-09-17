@@ -1,7 +1,7 @@
 def decrypt(ciphertext, cipherKey):
+    cipherKey = cipherKey.upper()
     plaintext = ""
     keyIndex = 0
-    upper = False
     for i in range(len(ciphertext)):
         currChar = ord(ciphertext[i])
         currCiph = ord(cipherKey[keyIndex]) - 65
@@ -31,6 +31,6 @@ def decrypt(ciphertext, cipherKey):
 
 if __name__ == '__main__':
     text = input()
-    key = input().upper()
+    key = input()
 
     print(decrypt(text, key))
